@@ -7,6 +7,11 @@ Example showing what is returned using the callback upon detection functionality
 Updated on 2020-10-11 by bernstern <bernie@allthenticate.net>
 
 """
+"""
+example cmd:
+python detection_callback.py --services=01ff0200-ba5e-f4ee-5ca1-eb1e5e4b1ce0
+"""
+
 
 import argparse
 import asyncio
@@ -16,6 +21,7 @@ from bleak import BleakScanner
 from bleak.backends.device import BLEDevice
 from bleak.backends.scanner import AdvertisementData
 
+
 logger = logging.getLogger(__name__)
 
 
@@ -24,6 +30,7 @@ def simple_callback(device: BLEDevice, advertisement_data: AdvertisementData):
 
 
 async def main(args: argparse.Namespace):
+    print("args.services:", args.services)
     scanner = BleakScanner(
         simple_callback, args.services, cb=dict(use_bdaddr=args.macos_use_bdaddr)
     )
